@@ -76,10 +76,8 @@ export default class Keyboard extends PureComponent {
 			this.props.onChange({inputNode, nextValue});
 		}
 
-        requestAnimationFrame(() => requestAnimationFrame(() => {
-            inputNode.focus();
-            inputNode.setSelectionRange(selectionStart + 1, selectionStart + 1);
-        }));
+		inputNode.focus();
+		inputNode.setSelectionRange(selectionStart + 1, selectionStart + 1);
 	}
 
 	handleBackspaceClick = () => {
@@ -104,10 +102,8 @@ export default class Keyboard extends PureComponent {
             this.props.onChange({inputNode, nextValue});
         }
 
-        requestAnimationFrame(() => requestAnimationFrame(() => {
-            inputNode.focus();
-            inputNode.setSelectionRange(nextSelectionPosition, nextSelectionPosition);
-        }));
+		inputNode.focus();
+		inputNode.setSelectionRange(nextSelectionPosition, nextSelectionPosition);
 	}
 
 	isUppercase() {
