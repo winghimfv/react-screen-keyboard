@@ -68,23 +68,27 @@ export default class Keyboard extends PureComponent {
         const {value, selectionStart, selectionEnd} = inputNode;
         const nextValue = value.substring(0, selectionStart) + key + value.substring(selectionEnd);
 
-        // inputNode.value = nextValue;
         if (this.props.onClick) {
             this.props.onClick(nextValue);
         }
-        // setTimeout(() => {
-        //     inputNode.focus();
-        //     inputNode.setSelectionRange(selectionStart + 1, selectionStart + 1);
-        // }, 0);
-        this.setState({uppercase: this.isUppercase()});
-        // inputNode.dispatchEvent(new Event('input', {bubbles: true}));
 
 		if (this.props.onChange) {
 			this.props.onChange({
                 inputNode,
                 nextValue
+			}, () => {
+                requestAnimationFrame(() => {
+                    inputNode.focus();
+                    inputNode.setSelectionRange(selectionStart + 1, selectionStart + 1);
+                });
 			});
+			return;
 		}
+
+        requestAnimationFrame(() => {
+            inputNode.focus();
+            inputNode.setSelectionRange(selectionStart + 1, selectionStart + 1);
+        });
 	}
 
 	handleBackspaceClick = () => {
@@ -101,23 +105,27 @@ export default class Keyboard extends PureComponent {
 		}
 		nextSelectionPosition = (nextSelectionPosition > 0) ? nextSelectionPosition : 0;
 
-		// inputNode.value = nextValue;
 		if (this.props.onClick) {
 			this.props.onClick(nextValue);
 		}
-		// setTimeout(() => {
-		// 	inputNode.focus();
-		// 	inputNode.setSelectionRange(nextSelectionPosition, nextSelectionPosition);
-		// }, 0);
-		this.setState({uppercase: this.isUppercase()});
-		// inputNode.dispatchEvent(new Event('input', {bubbles: true}));
 
         if (this.props.onChange) {
             this.props.onChange({
                 inputNode,
                 nextValue
-            });
+            }, () => {
+                requestAnimationFrame(() => {
+                    inputNode.focus();
+                    inputNode.setSelectionRange(nextSelectionPosition, nextSelectionPosition);
+                });
+			});
+            return;
         }
+
+        requestAnimationFrame(() => {
+            inputNode.focus();
+            inputNode.setSelectionRange(nextSelectionPosition, nextSelectionPosition);
+        });
 	}
 
 	isUppercase() {
