@@ -73,16 +73,7 @@ export default class Keyboard extends PureComponent {
         }
 
 		if (this.props.onChange) {
-			this.props.onChange({
-                inputNode,
-                nextValue
-			}, () => {
-                requestAnimationFrame(() => {
-                    inputNode.focus();
-                    inputNode.setSelectionRange(selectionStart + 1, selectionStart + 1);
-                });
-			});
-			return;
+			this.props.onChange({inputNode, nextValue});
 		}
 
         requestAnimationFrame(() => {
@@ -110,16 +101,7 @@ export default class Keyboard extends PureComponent {
 		}
 
         if (this.props.onChange) {
-            this.props.onChange({
-                inputNode,
-                nextValue
-            }, () => {
-                requestAnimationFrame(() => {
-                    inputNode.focus();
-                    inputNode.setSelectionRange(nextSelectionPosition, nextSelectionPosition);
-                });
-			});
-            return;
+            this.props.onChange({inputNode, nextValue});
         }
 
         requestAnimationFrame(() => {
